@@ -31,6 +31,7 @@ namespace hlab
             : amb(color), dif(color), spec(color)
         {
         }
+        // Object의 상속을 받는 클래스에서 Object 생성자에 인자를 넣으면 amb,dif,spec 색상값 조정 가능.
 
         virtual Hit CheckRayCollision(Ray &ray) = 0;
     };

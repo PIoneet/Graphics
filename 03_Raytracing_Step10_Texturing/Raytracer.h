@@ -25,6 +25,8 @@ namespace hlab
 
 		Raytracer(const int &width, const int &height)
 			: width(width), height(height)
+			// main.cpp에서 너비와 높이를 넘겨주고 있다.
+			//윈도우 api에서는 좌측 상단이 (0,0)으로 인식하고 있습니다. 다렉의 텍스쳐 좌표도 그렇다.
 		{
 			// sphere1은 강의 내용과는 무관합니다. 빼고 실습하셔도 됩니다.
 			auto sphere1 = make_shared<Sphere>(vec3(1.0f, 0.0f, 1.5f), 0.4f);
@@ -37,7 +39,11 @@ namespace hlab
 			objects.push_back(sphere1);
 
 			// 간단한 이미지
-			std::vector<vec3> textureImage(4 * 4);
+			std::vector<vec3> textureImage(4 * 4);  //vec3은 픽셀 색상값을 애기하는듯
+			// 이렇게 벡터 뒤에 ()로 초기화하면 16칸의 원소를 확보하겠다는 애기다.
+			// 초기화 단계 시점에서 resize()하는 것이라고 생각하면 편하다. 
+
+
 			for (int j = 0; j < 4; j++)
 				for (int i = 0; i < 4; i++)
 				{
@@ -161,6 +167,9 @@ namespace hlab
 					const vec3 pixelPosWorld = TransformScreenToWorld(vec2(i, j));
 					Ray pixelRay{pixelPosWorld, glm::normalize(pixelPosWorld - eyePos)};
 					pixels[i + width * j] = vec4(glm::clamp(traceRay(pixelRay), 0.0f, 1.0f), 1.0f);
+
+					// 각 vec3 성분이 0보다 작으면 0이 되고 1보다 크면 1이 되도록 clamp 해준다. 
+					// 픽셀 색상에서 1이 제일 밝은거고 0이 제일 어두운 거니까 말이다.
 				}
 		}
 
@@ -173,5 +182,9 @@ namespace hlab
 			// 3차원 공간으로 확장 (z좌표는 0.0)
 			return vec3((posScreen.x * xScale - 1.0f) * aspect, -posScreen.y * yScale + 1.0f, 0.0f);
 		}
+		
+		//0~2 사이로 먼저 정규화하고 거기서 -1~1로 바꾸려고 했던 거구나. 
+		
+
 	};
 }

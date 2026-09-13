@@ -18,7 +18,7 @@ namespace hlab
 
         // Wikipedia Line–sphere intersection
         // https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection
-        Hit CheckRayCollision(Ray &ray)
+        Hit CheckRayCollision(Ray &ray)  // 도형마다 충돌 처리 방식이 상이하기 때문이다.
         {
             Hit hit = Hit{-1.0f, vec3(0.0f), vec3(0.0f)};
 

@@ -20,6 +20,7 @@ namespace hlab
 
         Triangle(vec3 v0, vec3 v1, vec3 v2, vec2 uv0 = vec2(0.0f), vec2 uv1 = vec2(0.0f), vec2 uv2 = vec2(0.0f))
             : v0(v0), v1(v1), v2(v2), uv0(uv0), uv1(uv1), uv2(uv2)
+            // v0 v1 v2는 여기서는 일반적으로 입력받는 걸 기준으로 생각하면 될듯.
         {
         }
 
